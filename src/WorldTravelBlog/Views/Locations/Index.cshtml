@@ -3,7 +3,38 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Locations</h1>
+@model IEnumerable<WorldTravelBlog.Models.Location>
 
+<h1>Locations</h1>
+<hr />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Country)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var listLocation in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelLocation => listLocation.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelLocation => listLocation.Country)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = listLocation.LocationId }) |
+                @Html.ActionLink("Details", "Details", new { id = listLocation.LocationId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = listLocation.LocationId })
+            </td>
+        </tr>
+    }
+</table>
 
 <p>@Html.ActionLink("Add new location", "Create")</p>
