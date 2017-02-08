@@ -1,18 +1,18 @@
 ﻿@{
-    ViewData["Title"] = "New Location";
+    ViewData["Title"] = "Delete Experience";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@model WorldTravelBlog.Models.Location
+@model WorldTravelBlog.Models.Experience
 
-<h1>Are you sure you want to delete this location: @Html.DisplayFor(model => model.Name)?</h1>
+<h1>Are you sure you want to delete this location: @Html.DisplayFor(model => model.Title)?</h1>
 <hr />
 
-<h2>Country: @Html.DisplayFor(model => model.Country)</h2>
+<h2>Country: @Html.DisplayFor(model => model.Description)</h2>
 
 @using (Html.BeginForm())
 {
     <input type="submit" value="Delete" class="btn btn-danger" />
 }
 
-@Html.ActionLink("Back to locations list", "Index")
+@Html.ActionLink("Back to experiences list", "Index", new { id = Model.LocationId })

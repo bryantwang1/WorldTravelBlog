@@ -1,27 +1,30 @@
 ﻿@{
-    ViewData["Title"] = "New Location";
+    ViewData["Title"] = "Edit Experience";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@model WorldTravelBlog.Models.Location
+@model WorldTravelBlog.Models.Experience
 
-<h1>Edit Location: @Html.DisplayFor(model => model.Name)</h1>
+<h1>Edit Experience: @Html.DisplayFor(model => model.Title)</h1>
 <hr />
 
 @using (Html.BeginForm())
 {
-    @Html.HiddenFor(model => model.LocationId)
+    @Html.HiddenFor(model => model.ExperienceId)
 
-    @Html.LabelFor(model => model.Name)
-    @Html.EditorFor(model => model.Name)
-
-    @Html.LabelFor(model => model.Country)
-    @Html.EditorFor(model => model.Country)
+    @Html.LabelFor(model => model.Title)
+    @Html.EditorFor(model => model.Title)
 
     @Html.LabelFor(model => model.Description)
     @Html.EditorFor(model => model.Description)
 
+    @Html.LabelFor(model => model.Date)
+    @Html.EditorFor(model => model.Date)
+
+    @Html.LabelFor(model => model.LocationId)
+    @Html.DropDownList("LocationId")
+
     <input type="submit" value="Save Changes" class="btn btn-default" />
 }
 
-<p>@Html.ActionLink("Back to locations list", "Index")</p>
+<p>@Html.ActionLink("Back to experiences list", "Index", new { id = Model.LocationId })</p>

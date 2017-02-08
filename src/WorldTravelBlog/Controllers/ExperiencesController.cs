@@ -14,10 +14,16 @@ namespace WorldTravelBlog.Controllers
     public class ExperiencesController : Controller
     {
         private TravelBlogContext db = new TravelBlogContext();
-        public IActionResult Index(int id)
+
+        public IActionResult Index()
+        {
+            return View(db.Experiences.Include(experiences => experiences.Location).ToList());
+        }
+
+        public IActionResult Location(int id)
         {
             ViewBag.thisLocation = db.Locations.FirstOrDefault(locations => locations.LocationId == id);
-            return View(db.Experiences.Include(experiences => experiences.Location).Where(experiences => experiences.LocationId == id).ToList());
+            return View("Index", db.Experiences.Include(experiences => experiences.Location).Where(experiences => experiences.LocationId == id).ToList());
         }
 
         public IActionResult Details(int id)
@@ -37,7 +43,7 @@ namespace WorldTravelBlog.Controllers
         {
             db.Experiences.Add(experience);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { experience.LocationId });
         }
 
         public IActionResult Edit(int id)

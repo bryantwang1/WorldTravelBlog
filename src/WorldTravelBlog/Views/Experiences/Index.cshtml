@@ -1,11 +1,17 @@
 ﻿@{
-    ViewData["Title"] = "World Travel Blog";
+    ViewData["Title"] = "Experiences";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @model IEnumerable<WorldTravelBlog.Models.Experience>
-
-<h1>Experiences at @ViewBag.thisLocation.Name</h1>
+@if(ViewBag.thisLocation != null)
+{
+    <h1>Experiences at @ViewBag.thisLocation.Name</h1>
+}
+else
+{
+    <h1>All Experiences</h1>
+}
 <hr />
 
 <table class="table">
@@ -46,5 +52,8 @@
 </table>
 
 <p>@Html.ActionLink("Add new experience", "Create")</p>
+@if (ViewBag.thisLocation != null)
+{
 <p>@Html.ActionLink("Go back to location details", "Details", "Locations", new { id = ViewBag.thisLocation.LocationId }, null)</p>
+}
 <p>@Html.ActionLink("Go back to location list", "Index", "Locations")</p>
