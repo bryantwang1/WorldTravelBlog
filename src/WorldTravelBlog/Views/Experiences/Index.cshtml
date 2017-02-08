@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "World Travel Blog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<WorldTravelBlog.Models.Experience>
+
+<h1>Experiences at @ViewBag.thisLocation.Name</h1>
+<hr />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+    </tr>
+
+    @foreach (var listExperience in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelExperience => listExperience.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelExperience => listExperience.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelExperience => listExperience.Location.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelExperience => listExperience.Location.Country)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = listExperience.ExperienceId }) |
+                @Html.ActionLink("Details", "Details", new { id = listExperience.ExperienceId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = listExperience.ExperienceId })
+            </td>
+        </tr>
+    }
+</table>
+
+<p>@Html.ActionLink("Add new experience", "Create")</p>
+<p>@Html.ActionLink("Go back to location details", "Details", "Locations", new { id = ViewBag.thisLocation.LocationId }, null)</p>
+<p>@Html.ActionLink("Go back to location list", "Index", "Locations")</p>

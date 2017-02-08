@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "New Experience";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model WorldTravelBlog.Models.Experience
+
+<h1>Add a new experience</h1>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(model => model.Title)
+    @Html.TextBoxFor(model => model.Title)
+
+    @Html.LabelFor(model => model.Description)
+    @Html.TextBoxFor(model => model.Description)
+
+    @Html.LabelFor(model => model.Date)
+    @Html.TextBoxFor(model => model.Date)
+
+    @Html.LabelFor(model => model.LocationId)
+    @Html.DropDownList("LocationId")
+
+    <input type="submit" value="Add new experience" class="btn btn-default" />
+}
+
+<p>@Html.ActionLink("Back to experience list", "Index")</p>

@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace WorldTravelBlog.Models
 {
-    public class Location
+    public class Person
     {
         [Key]
-        public int LocationId { get; set; }
+        public int PersonId { get; set; }
         public string Name { get; set; }
-        public string Country { get; set; }
         public string Description { get; set; }
-        public ICollection<Experience> Experiences { get; set; }
+        public ICollection<ExperiencePerson> ExperiencePersons { get; set; }
     }
 }
