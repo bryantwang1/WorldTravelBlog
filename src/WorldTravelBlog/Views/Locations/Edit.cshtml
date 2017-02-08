@@ -5,21 +5,23 @@
 
 @model WorldTravelBlog.Models.Location
 
-<h1>Add a new location</h1>
+<h1>Edit Location: @Html.DisplayFor(model => model.Name)</h1>
 <hr />
 
 @using (Html.BeginForm())
 {
+    @Html.HiddenFor(model => model.LocationId)
+
     @Html.LabelFor(model => model.Name)
-    @Html.TextBoxFor(model => model.Name)
+    @Html.EditorFor(model => model.Name)
 
     @Html.LabelFor(model => model.Country)
-    @Html.TextBoxFor(model => model.Country)
+    @Html.EditorFor(model => model.Country)
 
     @Html.LabelFor(model => model.Description)
-    @Html.TextBoxFor(model => model.Description)
+    @Html.EditorFor(model => model.Description)
 
-    <input type="submit" value="Add new location" class="btn btn-default" />
+    <input type="submit" value="Save Changes" class="btn btn-default" />
 }
 
 <p>@Html.ActionLink("Back to locations list", "Index")</p>
