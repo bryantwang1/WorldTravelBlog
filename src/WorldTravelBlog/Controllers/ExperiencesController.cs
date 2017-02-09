@@ -141,6 +141,21 @@ namespace WorldTravelBlog.Controllers
         [HttpPost]
         public IActionResult AddPerson(ExperiencePerson experiencePerson)
         {
+            var relationList = db.ExperiencePersons.Where(ep => ep.ExperienceId.Equals(experiencePerson.ExperienceId)).ToList();
+            bool alreadyExist = false;
+
+            foreach(var existingEP in relationList)
+            {
+                if(existingEP.PersonId == experiencePerson.PersonId)
+                {
+                    alreadyExist = true;
+                }
+            }
+
+            if(!alreadyExist)
+            {
+                db.ExperiencePersons.Add(experiencePerson);
+            }
             //if(!db.ExperiencePersons.Contains())
             //{
             //    db.ExperiencePersons.Add(experiencePerson);
@@ -159,7 +174,22 @@ namespace WorldTravelBlog.Controllers
         [HttpPost]
         public IActionResult AddExperience(ExperiencePerson experiencePerson)
         {
-            db.ExperiencePersons.Add(experiencePerson);
+            var relationList = db.ExperiencePersons.Where(ep => ep.PersonId.Equals(experiencePerson.PersonId)).ToList();
+            bool alreadyExist = false;
+
+            foreach (var existingEP in relationList)
+            {
+                if (existingEP.ExperienceId == experiencePerson.ExperienceId)
+                {
+                    alreadyExist = true;
+                }
+            }
+
+            if (!alreadyExist)
+            {
+                db.ExperiencePersons.Add(experiencePerson);
+            }
+
             db.SaveChanges();
             return RedirectToAction("People");
         }
