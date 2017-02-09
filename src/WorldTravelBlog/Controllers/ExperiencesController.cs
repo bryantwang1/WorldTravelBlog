@@ -34,7 +34,7 @@ namespace WorldTravelBlog.Controllers
 
         public IActionResult Create()
         {
-            ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "Name", "Country");
+            ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "Name");
             return View();
         }
 
@@ -49,7 +49,7 @@ namespace WorldTravelBlog.Controllers
         public IActionResult Edit(int id)
         {
             var thisExperience = db.Experiences.FirstOrDefault(experiences => experiences.ExperienceId == id);
-            ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "Name", "Country");
+            ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "Name");
             return View(thisExperience);
         }
 
@@ -71,6 +71,88 @@ namespace WorldTravelBlog.Controllers
         {
             var thisExperience = db.Experiences.FirstOrDefault(experiences => experiences.ExperienceId == id);
             db.Experiences.Remove(thisExperience);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult CreatePerson()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreatePerson(Person person)
+        {
+            db.Persons.Add(person);
+            db.SaveChanges();
+            return RedirectToAction("People");
+        }
+
+        public IActionResult EditPerson(int id)
+        {
+            var thisPerson = db.Persons.FirstOrDefault(persons => persons.PersonId == id);
+            
+            return View(thisPerson);
+        }
+
+        [HttpPost]
+        public IActionResult EditPerson(Person person)
+        {
+            db.Entry(person).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("People");
+        }
+        public IActionResult DeletePerson(int id)
+        {
+            var thisAnything = db.Persons.FirstOrDefault(anythings => anythings.PersonId == id);
+            return View(thisAnything);
+        }
+
+        [HttpPost, ActionName("DeletePerson")]
+        public IActionResult DeletePersonConfirmed(int id)
+        {
+            var thisAnything = db.Persons.FirstOrDefault(anythings => anythings.PersonId == id);
+            db.Persons.Remove(thisAnything);
+            db.SaveChanges();
+            return RedirectToAction("People");
+        }
+
+        public IActionResult People()
+        {
+            return View(db.Persons.ToList());
+        }
+
+        public IActionResult DetailsPerson(int id)
+        {
+            var thisPerson = db.Persons.FirstOrDefault(persons => persons.PersonId == id);
+            return View(thisPerson);
+        }
+
+        public IActionResult AddPerson(int id)
+        {
+            ViewBag.thisExperience = db.Experiences.FirstOrDefault(experiences => experiences.ExperienceId == id);
+            ViewBag.ExperienceId = new SelectList(db.Experiences, "ExperienceId", "Title");
+            ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Name");
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddPerson(ExperiencePerson experiencePerson)
+        {
+            db.ExperiencePersons.Add(experiencePerson);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public IActionResult AddExperience(int id)
+        {
+            var thisExperience = db.Experiences.FirstOrDefault(experiences => experiences.ExperienceId == id);
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(ExperiencePerson experiencePerson)
+        {
+            db.ExperiencePersons.Add(experiencePerson);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

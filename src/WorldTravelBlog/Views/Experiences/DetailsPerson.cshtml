@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "People Detailed Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model WorldTravelBlog.Models.Person
+
+<h1>@Html.DisplayFor(model => model.Name) Details</h1>
+<hr />
+
+<h4>Description: @Html.DisplayFor(model => model.Description)</h4>
+
+<p>@Html.ActionLink("Back to persons list", "People")</p>

@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "People Encountered";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<WorldTravelBlog.Models.Person>
+
+<h1>All People</h1>
+
+<hr />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>       
+    </tr>
+
+    @foreach (var listPerson in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelPerson => listPerson.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelPerson => listPerson.Description)
+            </td>
+ 
+            <td>
+                @Html.ActionLink("Edit", "EditPerson", new { id = listPerson.PersonId }) |
+                @Html.ActionLink("Details", "DetailsPerson", new { id = listPerson.PersonId }) |
+                @Html.ActionLink("Delete", "DeletePerson", new { id = listPerson.PersonId }) | 
+                @Html.ActionLink("Add Experience", "AddExperience", new { id = listPerson.PersonId })
+            </td>
+        </tr>
+    }
+</table>
+
+<p>@Html.ActionLink("Add new person", "CreatePerson")</p>
+<p>@Html.ActionLink("Go back to experiences list", "Index")</p>

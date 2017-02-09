@@ -45,7 +45,8 @@ else
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = listExperience.ExperienceId }) |
                 @Html.ActionLink("Details", "Details", new { id = listExperience.ExperienceId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = listExperience.ExperienceId })
+                @Html.ActionLink("Delete", "Delete", new { id = listExperience.ExperienceId }) | 
+                @Html.ActionLink("Add Person", "AddPerson", new { id = listExperience.ExperienceId })
             </td>
         </tr>
     }

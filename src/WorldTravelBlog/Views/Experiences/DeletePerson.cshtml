@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Delete Person";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model WorldTravelBlog.Models.Person
+
+<h1>Are you sure you want to delete this person info: @Html.DisplayFor(model => model.Name)?</h1>
+<hr />
+
+<h2>Description: @Html.DisplayFor(model => model.Description)</h2>
+
+@using (Html.BeginForm())
+{
+    <input type="submit" value="Delete" class="btn btn-danger" />
+}
+
+@Html.ActionLink("Back to persons list", "People")

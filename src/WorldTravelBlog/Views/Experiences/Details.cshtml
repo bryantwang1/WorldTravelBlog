@@ -3,12 +3,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@model WorldTravelBlog.Models.Location
+@model WorldTravelBlog.Models.Experience
 
-<h1>@Html.DisplayFor(model => model.Name) Details</h1>
+<h1>@Html.DisplayFor(model => model.Title) Details</h1>
 <hr />
 
-<h2>Country: @Html.DisplayFor(model => model.Country)</h2>
+<h2>Date: @Html.DisplayFor(model => model.Date)</h2>
 <h4>Description: @Html.DisplayFor(model => model.Description)</h4>
 
-<p>@Html.ActionLink("Back to locations list", "Index")</p>
+<p>@Html.ActionLink("Back to experience list", "Index")</p>

@@ -9,6 +9,7 @@ namespace WorldTravelBlog.Models
     public class ExperiencePerson
     {
         [Key]
+        //[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)] try this on thursday
         public int Id { get; set; }
 
         public int ExperienceId { get; set; }
