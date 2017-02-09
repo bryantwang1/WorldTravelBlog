@@ -14,7 +14,7 @@ namespace WorldTravelBlog.Models
         public string Description { get; set; }
         public DateTime Date { get; set; }
         public int LocationId { get; set; }
-        public Location Location { get; set; }
+        public virtual Location Location { get; set; }
         public ICollection<ExperiencePerson> ExperiencePersons { get; set; }
     }
 }

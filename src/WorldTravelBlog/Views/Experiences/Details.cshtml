@@ -11,6 +11,10 @@
 <h2>Date: @Html.DisplayFor(model => model.Date)</h2>
 <h4>Description: @Html.DisplayFor(model => model.Description)</h4>
 
+<h4>Location: @Html.DisplayFor(model => model.Location.Name) in @Html.DisplayFor(model => model.Location.Country)</h4>
+
+<h4>Description: @Html.DisplayFor(model => model.Description)</h4>
+
 @foreach(var experiencePerson in ViewBag.People)
 {
     <p>@experiencePerson.Person.Name</p>

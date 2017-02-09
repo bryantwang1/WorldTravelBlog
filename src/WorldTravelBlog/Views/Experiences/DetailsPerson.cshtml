@@ -10,9 +10,10 @@
 
 <h4>Description: @Html.DisplayFor(model => model.Description)</h4>
 
+<h3>Experiences: </h3>
 @foreach (var experiencePerson in ViewBag.Experiences)
 {
-    <p>@experiencePerson.Experience.Title</p>
+    <p>@experiencePerson.Experience.Title At @experiencePerson.Experience.Location.Name In @experiencePerson.Experience.Location.Country</p>
 }
 
 <p>@Html.ActionLink("Back to persons list", "People")</p>

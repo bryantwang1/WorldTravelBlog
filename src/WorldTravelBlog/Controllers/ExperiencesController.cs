@@ -28,7 +28,7 @@ namespace WorldTravelBlog.Controllers
 
         public IActionResult Details(int id)
         {
-            var thisExperience = db.Experiences.FirstOrDefault(experiences => experiences.ExperienceId == id);
+            var thisExperience = db.Experiences.Include(ep => ep.Location).FirstOrDefault(experiences => experiences.ExperienceId == id);
             ViewBag.People = db.ExperiencePersons.Include(ep => ep.Person).Where(ep => ep.ExperienceId == id).ToList();
             return View(thisExperience);
         }
@@ -126,8 +126,7 @@ namespace WorldTravelBlog.Controllers
         public IActionResult DetailsPerson(int id)
         {
             var thisPerson = db.Persons.FirstOrDefault(persons => persons.PersonId == id);
-            ViewBag.Experiences = db.ExperiencePersons.Include(ep => ep.Experience).Where(ep => ep.PersonId == id).ToList();
-            //ViewBag.Location = db.Experiences.Where(lo => lo.ExperienceId)
+            ViewBag.Experiences = db.ExperiencePersons.Include(ep => ep.Experience).ThenInclude(experience => experience.Location).Where(ep => ep.PersonId == id).ToList();
             return View(thisPerson);
         }
 
@@ -142,8 +141,10 @@ namespace WorldTravelBlog.Controllers
         [HttpPost]
         public IActionResult AddPerson(ExperiencePerson experiencePerson)
         {
-            db.ExperiencePersons.Add(experiencePerson);
-            //db.Entry(experiencePerson).State = EntityState.Detached
+            //if(!db.ExperiencePersons.Contains())
+            //{
+            //    db.ExperiencePersons.Add(experiencePerson);
+            //}
             db.SaveChanges();
             return RedirectToAction("Index");
         }
