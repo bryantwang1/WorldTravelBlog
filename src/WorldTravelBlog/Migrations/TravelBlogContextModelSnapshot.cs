@@ -38,14 +38,14 @@ namespace WorldTravelBlog.Migrations
 
             modelBuilder.Entity("WorldTravelBlog.Models.ExperiencePerson", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ExperiencePersonId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("ExperienceId");
 
                     b.Property<int>("PersonId");
 
-                    b.HasKey("Id");
+                    b.HasKey("ExperiencePersonId");
 
                     b.HasIndex("ExperienceId");
 

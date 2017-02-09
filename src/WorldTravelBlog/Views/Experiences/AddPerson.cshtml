@@ -10,9 +10,9 @@
 
 @using (Html.BeginForm())
 {
-    @*<input data-val="true" data-val-required="The ExperienceId field is required." type="hidden" name="ExperienceId" id="ExperienceId" value="@ViewBag.thisExperience.ExperienceId" />*@
-    @Html.LabelFor(model => model.ExperienceId)
-    @Html.DropDownList("ExperienceId")
+    <input data-val="true" data-val-required="The ExperienceId field is required." type="hidden" name="ExperienceId" id="ExperienceId" value="@ViewBag.thisExperience.ExperienceId" />
+    @*@Html.LabelFor(model => model.ExperienceId)
+    @Html.DropDownList("ExperienceId")*@
 
     @Html.LabelFor(model => model.PersonId)
     @Html.DropDownList("PersonId")

@@ -29,6 +29,7 @@ namespace WorldTravelBlog.Controllers
         public IActionResult Details(int id)
         {
             var thisExperience = db.Experiences.FirstOrDefault(experiences => experiences.ExperienceId == id);
+            ViewBag.People = db.ExperiencePersons.Include(ep => ep.Person).Where(ep => ep.ExperienceId == id).ToList();
             return View(thisExperience);
         }
 
@@ -131,7 +132,7 @@ namespace WorldTravelBlog.Controllers
         public IActionResult AddPerson(int id)
         {
             ViewBag.thisExperience = db.Experiences.FirstOrDefault(experiences => experiences.ExperienceId == id);
-            ViewBag.ExperienceId = new SelectList(db.Experiences, "ExperienceId", "Title");
+            //ViewBag.ExperienceId = new SelectList(db.Experiences, "ExperienceId", "Title");
             ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Name");
             return View();
         }
@@ -140,6 +141,7 @@ namespace WorldTravelBlog.Controllers
         public IActionResult AddPerson(ExperiencePerson experiencePerson)
         {
             db.ExperiencePersons.Add(experiencePerson);
+            //db.Entry(experiencePerson).State = EntityState.Detached
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -149,12 +151,13 @@ namespace WorldTravelBlog.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Create(ExperiencePerson experiencePerson)
-        {
-            db.ExperiencePersons.Add(experiencePerson);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //[HttpPost]
+        //public IActionResult Create(ExperiencePerson experiencePerson)
+        //{
+        //    db.ExperiencePersons.Add(experiencePerson);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
     }
 }
+

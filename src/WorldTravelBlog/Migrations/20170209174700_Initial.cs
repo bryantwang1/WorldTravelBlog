@@ -64,14 +64,14 @@ namespace WorldTravelBlog.Migrations
                 name: "ExperiencePersons",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    ExperiencePersonId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ExperienceId = table.Column<int>(nullable: false),
                     PersonId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ExperiencePersons", x => x.Id);
+                    table.PrimaryKey("PK_ExperiencePersons", x => x.ExperiencePersonId);
                     table.ForeignKey(
                         name: "FK_ExperiencePersons_Experiences_ExperienceId",
                         column: x => x.ExperienceId,
