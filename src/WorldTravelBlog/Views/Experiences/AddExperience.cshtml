@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "New Person";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model WorldTravelBlog.Models.ExperiencePerson
+
+<h1>Add an experience to this person: @ViewBag.thisPerson.Name</h1>
+<hr />
+
+@using (Html.BeginForm())
+{
+    <input data-val="true" data-val-required="The PersonId field is required." type="hidden" name="PersonId" id="PersonId" value="@ViewBag.thisPerson.PersonId" />
+    @Html.LabelFor(model => model.ExperienceId)
+        @Html.DropDownList("ExperienceId")
+
+    @*@Html.LabelFor(model => model.PersonId)
+    @Html.DropDownList("PersonId")*@
+
+    <input type="submit" value="Link experience to this person" class="btn btn-default" />
+}
+
+<p>@Html.ActionLink("Back to all people", "People")</p>

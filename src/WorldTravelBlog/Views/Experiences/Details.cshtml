@@ -11,9 +11,9 @@
 <h2>Date: @Html.DisplayFor(model => model.Date)</h2>
 <h4>Description: @Html.DisplayFor(model => model.Description)</h4>
 
-@foreach(var person in ViewBag.People)
+@foreach(var experiencePerson in ViewBag.People)
 {
-    <p>@person.Person.Name</p>
+    <p>@experiencePerson.Person.Name</p>
 }
 
 <p>@Html.ActionLink("Back to experience list", "Index")</p>
