@@ -92,7 +92,7 @@ namespace WorldTravelBlog.Controllers
         public IActionResult EditPerson(int id)
         {
             var thisPerson = db.Persons.FirstOrDefault(persons => persons.PersonId == id);
-            
+
             return View(thisPerson);
         }
 
@@ -115,6 +115,12 @@ namespace WorldTravelBlog.Controllers
             var thisAnything = db.Persons.FirstOrDefault(anythings => anythings.PersonId == id);
             db.Persons.Remove(thisAnything);
             db.SaveChanges();
+
+            // example for deletion of a relationship between an experience and a person
+            //var thisExperiencePerson = djwadjwad;
+            //db.ExperiencePersons.Remove(thisExperiencePerson);
+            //db.SaveChanges();
+
             return RedirectToAction("People");
         }
 
@@ -134,39 +140,46 @@ namespace WorldTravelBlog.Controllers
         {
             ViewBag.thisExperience = db.Experiences.FirstOrDefault(experiences => experiences.ExperienceId == id);
             //ViewBag.ExperienceId = new SelectList(db.Experiences, "ExperienceId", "Title");
-            ViewBag.PersonId = new SelectList(db.Persons, "PersonId", "Name");
+
+            var tempPersonList = db.ExperiencePersons.Where(ep => ep.ExperienceId == id).Select(ep => ep.PersonId).ToList();
+            var personList = db.Persons.Where(p => !tempPersonList.Contains(p.PersonId));
+
+            //ViewBag.PersonId = new SelectList(, "PersonId", "Name");
+            ViewBag.PersonId = new SelectList(personList, "PersonId", "Name");
             return View();
         }
 
         [HttpPost]
         public IActionResult AddPerson(ExperiencePerson experiencePerson)
         {
-            var relationList = db.ExperiencePersons.Where(ep => ep.ExperienceId.Equals(experiencePerson.ExperienceId)).ToList();
-            bool alreadyExist = false;
+            var relationIndex = db.ExperiencePersons.Where(ep => ep.ExperienceId.Equals(experiencePerson.ExperienceId)).ToList().FindIndex(ep => ep.PersonId.Equals(experiencePerson.PersonId));
+            //bool alreadyExist = false;
 
-            foreach(var existingEP in relationList)
-            {
-                if(existingEP.PersonId == experiencePerson.PersonId)
-                {
-                    alreadyExist = true;
-                }
-            }
+            //foreach(var existingEP in relationList)
+            //{
+            //    if(existingEP.PersonId == experiencePerson.PersonId)
+            //    {
+            //        alreadyExist = true;
+            //    }
+            //}
 
-            if(!alreadyExist)
+            //if(!alreadyExist)
+            if(relationIndex < 0)
             {
                 db.ExperiencePersons.Add(experiencePerson);
             }
-            //if(!db.ExperiencePersons.Contains())
-            //{
-            //    db.ExperiencePersons.Add(experiencePerson);
-            //}
+
             db.SaveChanges();
             return RedirectToAction("Index");
         }
         public IActionResult AddExperience(int id)
         {
            ViewBag.thisPerson = db.Persons.FirstOrDefault(persons => persons.PersonId == id);
-            ViewBag.ExperienceId = new SelectList(db.Experiences, "ExperienceId", "Title");
+
+            var tempExperienceList = db.ExperiencePersons.Where(ep => ep.PersonId == id).Select(ep => ep.ExperienceId).ToList();
+            var experienceList = db.Experiences.Where(e => !tempExperienceList.Contains(e.ExperienceId));
+
+            ViewBag.ExperienceId = new SelectList(experienceList, "ExperienceId", "Title");
 
             return View();
         }
@@ -174,18 +187,21 @@ namespace WorldTravelBlog.Controllers
         [HttpPost]
         public IActionResult AddExperience(ExperiencePerson experiencePerson)
         {
-            var relationList = db.ExperiencePersons.Where(ep => ep.PersonId.Equals(experiencePerson.PersonId)).ToList();
-            bool alreadyExist = false;
+            //var relationList = db.ExperiencePersons.Where(ep => ep.PersonId.Equals(experiencePerson.PersonId)).ToList();
+            var relationIndex = db.ExperiencePersons.Where(ep => ep.PersonId.Equals(experiencePerson.PersonId)).ToList().FindIndex(ep => ep.ExperienceId.Equals(experiencePerson.ExperienceId));
 
-            foreach (var existingEP in relationList)
-            {
-                if (existingEP.ExperienceId == experiencePerson.ExperienceId)
-                {
-                    alreadyExist = true;
-                }
-            }
+            //bool alreadyExist = false;
 
-            if (!alreadyExist)
+            //foreach (var existingEP in relationList)
+            //{
+            //    if (existingEP.ExperienceId == experiencePerson.ExperienceId)
+            //    {
+            //        alreadyExist = true;
+            //    }
+            //}
+
+            //if (!alreadyExist)
+            if(relationIndex < 0)
             {
                 db.ExperiencePersons.Add(experiencePerson);
             }

@@ -16,6 +16,11 @@
 
     @Html.LabelFor(model => model.PersonId)
     @Html.DropDownList("PersonId")
+    @*@foreach(var person in ViewBag.PersonId)
+    {
+        <p>person</p>
+
+    }*@
 
     <input type="submit" value="Link Person to this experience" class="btn btn-default" />
 }
